@@ -13,7 +13,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest]
+        include:
+          - os: windows-latest
+            platform: windows
+            artifact: VoiceStudioAI-Windows
+            archive: VoiceStudioAI-Windows.zip
+          - os: macos-latest
+            platform: macos
+            artifact: VoiceStudioAI-macOS-Apple-Silicon
+            archive: VoiceStudioAI-macOS-Apple-Silicon.zip
+          - os: macos-15-intel
+            platform: macos
+            artifact: VoiceStudioAI-macOS-Intel
+            archive: VoiceStudioAI-macOS-Intel.zip
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -31,7 +43,7 @@ jobs:
         run: python -m pip install -r requirements-desktop.txt
 
       - name: Build Windows executable
-        if: runner.os == 'Windows'
+        if: matrix.platform == 'windows'
         shell: pwsh
         run: >-
           python -m PyInstaller
@@ -42,17 +54,17 @@ jobs:
           desktop_launcher.py
 
       - name: Test Windows executable
-        if: runner.os == 'Windows'
+        if: matrix.platform == 'windows'
         shell: pwsh
         run: .\dist\VoiceStudioAI.exe --smoke-test
 
       - name: Package Windows executable
-        if: runner.os == 'Windows'
+        if: matrix.platform == 'windows'
         shell: pwsh
         run: Compress-Archive -LiteralPath .\dist\VoiceStudioAI.exe -DestinationPath .\VoiceStudioAI-Windows.zip
 
       - name: Build macOS application
-        if: runner.os == 'macOS'
+        if: matrix.platform == 'macos'
         run: >-
           python -m PyInstaller
           --noconfirm --clean --onedir --windowed
@@ -62,25 +74,17 @@ jobs:
           desktop_launcher.py
 
       - name: Test macOS application
-        if: runner.os == 'macOS'
+        if: matrix.platform == 'macos'
         run: ./dist/VoiceStudioAI.app/Contents/MacOS/VoiceStudioAI --smoke-test
 
       - name: Package macOS application
-        if: runner.os == 'macOS'
-        run: ditto -c -k --sequesterRsrc --keepParent dist/VoiceStudioAI.app VoiceStudioAI-macOS.zip
+        if: matrix.platform == 'macos'
+        run: ditto -c -k --sequesterRsrc --keepParent dist/VoiceStudioAI.app "${{ matrix.archive }}"
 
       - uses: actions/upload-artifact@v4
-        if: runner.os == 'Windows'
         with:
-          name: VoiceStudioAI-Windows
-          path: VoiceStudioAI-Windows.zip
-          retention-days: 30
-
-      - uses: actions/upload-artifact@v4
-        if: runner.os == 'macOS'
-        with:
-          name: VoiceStudioAI-macOS
-          path: VoiceStudioAI-macOS.zip
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.archive }}
           retention-days: 30
 
   release:
@@ -100,7 +104,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           gh release create "${GITHUB_REF_NAME}"
-          VoiceStudioAI-Windows.zip VoiceStudioAI-macOS.zip
+          VoiceStudioAI-Windows.zip
+          VoiceStudioAI-macOS-Apple-Silicon.zip
+          VoiceStudioAI-macOS-Intel.zip
           --repo "${GITHUB_REPOSITORY}"
           --title "Voice Studio AI ${GITHUB_REF_NAME}"
           --generate-notes
