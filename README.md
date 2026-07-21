@@ -1,5 +1,7 @@
 # Voice Studio AI
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/dxuanphuong41-sketch/voice-studio-ai)
+
 Ứng dụng FastAPI tạo giọng đọc Gemini TTS. Mỗi người dùng tự nhập API key; ứng dụng không lưu API key trên máy chủ.
 
 ## Chạy local
