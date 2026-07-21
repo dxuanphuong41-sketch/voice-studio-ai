@@ -2,7 +2,7 @@
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/dxuanphuong41-sketch/voice-studio-ai)
 
-Ứng dụng FastAPI tạo giọng đọc Gemini TTS. Mỗi người dùng tự nhập API key; ứng dụng không lưu API key trên máy chủ.
+Ứng dụng tạo giọng đọc MP3/WAV. Bản desktop có giao diện native để nhập key, chọn giọng, chọn phong cách, tạo, nghe và lưu file ngay trong ứng dụng; không mở trình duyệt và không lưu API key.
 
 ## Tải bản desktop
 
