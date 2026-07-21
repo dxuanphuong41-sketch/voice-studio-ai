@@ -12,6 +12,16 @@ import webbrowser
 
 
 APP_TITLE = "Voice Studio AI"
+_NULL_STREAMS: list[object] = []
+
+
+def ensure_console_streams() -> None:
+    """Provide safe streams for GUI builds where PyInstaller sets them to None."""
+    for stream_name in ("stdout", "stderr"):
+        if getattr(sys, stream_name) is None:
+            stream = open(os.devnull, "w", encoding="utf-8")
+            _NULL_STREAMS.append(stream)
+            setattr(sys, stream_name, stream)
 
 
 def user_data_dir() -> Path:
@@ -51,6 +61,7 @@ def create_server(port: int):
         port=port,
         log_level="warning",
         access_log=False,
+        log_config=None,
     )
     return uvicorn.Server(config)
 
@@ -179,6 +190,7 @@ class DesktopController:
 
 
 def main() -> int:
+    ensure_console_streams()
     parser = argparse.ArgumentParser(description=APP_TITLE)
     parser.add_argument("--smoke-test", action="store_true", help="Kiểm tra máy chủ rồi thoát")
     args = parser.parse_args()
