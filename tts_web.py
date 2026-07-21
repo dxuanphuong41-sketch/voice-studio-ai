@@ -36,36 +36,36 @@ async def add_security_headers(request: Request, call_next):
     return response
 
 VOICE_OPTIONS = [
-    ("Zephyr", "An Nhiên — sáng và tươi"),
-    ("Puck", "Minh Khôi — vui và năng lượng"),
-    ("Charon", "Đức Minh — thuyết minh rõ ràng"),
-    ("Kore", "Khánh An — chắc, rõ và nghiêm"),
-    ("Fenrir", "Nhật Minh — hào hứng"),
-    ("Leda", "Bảo Ngọc — trẻ trung"),
-    ("Orus", "Hoàng Nam — chắc giọng"),
-    ("Aoede", "Thanh Mai — nhẹ và thoáng"),
-    ("Callirrhoe", "Thu Hà — tự nhiên, dễ nghe"),
-    ("Autonoe", "Minh Anh — trong sáng"),
-    ("Enceladus", "Ngọc Lan — mềm và thoáng hơi"),
-    ("Iapetus", "Quang Minh — rõ chữ"),
-    ("Umbriel", "Gia Hân — gần gũi, tự nhiên"),
-    ("Algieba", "Hải Đăng — mượt mà"),
-    ("Despina", "Thảo Vy — mềm mượt"),
-    ("Erinome", "Anh Thư — phát âm rõ"),
-    ("Algenib", "Quốc Bảo — khàn và dày"),
-    ("Rasalgethi", "Tuấn Kiệt — bản tin chuyên nghiệp"),
-    ("Laomedeia", "Yến Nhi — vui tươi"),
-    ("Achernar", "Phương Anh — mềm mại"),
-    ("Alnilam", "Thành Đạt — vững vàng"),
-    ("Schedar", "Mai Chi — đều và ổn định"),
-    ("Gacrux", "Trọng Nghĩa — trưởng thành"),
-    ("Pulcherrima", "Kim Oanh — nổi bật"),
-    ("Achird", "Minh Châu — thân thiện"),
-    ("Zubenelgenubi", "Gia Bảo — đời thường"),
-    ("Vindemiatrix", "Bích Ngọc — dịu dàng"),
-    ("Sadachbia", "Khánh Linh — sinh động"),
-    ("Sadaltager", "Đức Anh — hiểu biết"),
-    ("Sulafat", "Hoài An — ấm áp"),
+    ("Zephyr", "Bright / sáng, tươi"),
+    ("Puck", "Upbeat / vui, năng lượng"),
+    ("Charon", "Informative / thuyết minh rõ"),
+    ("Kore", "Firm / chắc, rõ, nghiêm"),
+    ("Fenrir", "Excitable / hào hứng"),
+    ("Leda", "Youthful / trẻ trung"),
+    ("Orus", "Firm / chắc giọng"),
+    ("Aoede", "Breezy / nhẹ, thoáng"),
+    ("Callirrhoe", "Easy-going / dễ nghe"),
+    ("Autonoe", "Bright / sáng"),
+    ("Enceladus", "Breathy / hơi thở, mềm"),
+    ("Iapetus", "Clear / rõ chữ"),
+    ("Umbriel", "Easy-going / tự nhiên"),
+    ("Algieba", "Smooth / mượt"),
+    ("Despina", "Smooth / mượt"),
+    ("Erinome", "Clear / rõ"),
+    ("Algenib", "Gravelly / khàn, dày"),
+    ("Rasalgethi", "Informative / tin tức"),
+    ("Laomedeia", "Upbeat / vui"),
+    ("Achernar", "Soft / mềm"),
+    ("Alnilam", "Firm / vững"),
+    ("Schedar", "Even / đều"),
+    ("Gacrux", "Mature / trưởng thành"),
+    ("Pulcherrima", "Forward / nổi bật"),
+    ("Achird", "Friendly / thân thiện"),
+    ("Zubenelgenubi", "Casual / đời thường"),
+    ("Vindemiatrix", "Gentle / dịu"),
+    ("Sadachbia", "Lively / sinh động"),
+    ("Sadaltager", "Knowledgeable / hiểu biết"),
+    ("Sulafat", "Warm / ấm"),
 ]
 
 STYLE_PRESETS = {
@@ -89,7 +89,7 @@ def render_options(options: list[tuple[str, str]], selected: str) -> str:
     parts = []
     for value, label in options:
         attr = " selected" if value == selected else ""
-        parts.append(f'<option value="{value}"{attr}>{label}</option>')
+        parts.append(f'<option value="{value}"{attr}>{value} — {label}</option>')
     return "\n".join(parts)
 
 
@@ -666,7 +666,7 @@ HTML = """
           <select name="voice">
             __VOICE_OPTIONS__
           </select>
-          <div class="tiny">Gợi ý: Khánh An hoặc Quang Minh cho rõ chữ; Minh Khôi hoặc Nhật Minh cho năng lượng; Hoài An hoặc Phương Anh cho chất giọng ấm mềm.</div>
+          <div class="tiny">Gợi ý: Kore/Iapetus cho rõ chữ, Puck/Fenrir cho năng lượng, Sulafat/Achernar cho ấm mềm.</div>
         </div>
         <div>
           <label>Phong cách có sẵn</label>
