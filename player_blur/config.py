@@ -1,8 +1,11 @@
 from dataclasses import dataclass
+import os
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(
+    os.environ.get("VOICE_STUDIO_DATA_DIR", Path(__file__).resolve().parent.parent)
+).expanduser().resolve()
 
 
 @dataclass(frozen=True)

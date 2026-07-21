@@ -4,6 +4,15 @@
 
 Ứng dụng FastAPI tạo giọng đọc Gemini TTS. Mỗi người dùng tự nhập API key; ứng dụng không lưu API key trên máy chủ.
 
+## Tải bản desktop
+
+Mở trang [Releases](https://github.com/dxuanphuong41-sketch/voice-studio-ai/releases/latest) và tải đúng phiên bản:
+
+- **Windows:** `VoiceStudioAI-Windows.zip` — giải nén rồi chạy `VoiceStudioAI.exe`.
+- **macOS:** `VoiceStudioAI-macOS.zip` — giải nén rồi mở `VoiceStudioAI.app`.
+
+Ứng dụng chưa ký chứng thư nhà phát triển. Windows SmartScreen có thể yêu cầu chọn **More info > Run anyway**; trên macOS, nhấp chuột phải vào ứng dụng và chọn **Open** ở lần chạy đầu tiên.
+
 ## Chạy local
 
 ```powershell
