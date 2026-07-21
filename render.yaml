@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: voice-studio-ai
+    runtime: docker
+    plan: free
+    region: singapore
+    healthCheckPath: /health
+    autoDeployTrigger: commit
